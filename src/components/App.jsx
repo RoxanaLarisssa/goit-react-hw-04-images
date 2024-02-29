@@ -20,7 +20,7 @@ const App = () => {
   }, [query]);
 
   const fetchImages = async () => {
-    const apiKey = '42074727-f1151295fbcc10abbb4f66773';
+    const apiKey = '40924862-56f4c70484d80a98ef4c30bbb';
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(
       query
     )}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`;
