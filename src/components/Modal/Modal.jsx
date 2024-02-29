@@ -1,41 +1,46 @@
-import React from 'react';
-import { createPortal } from 'react-dom';
-import css from './Modal.module.css';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import styles from './Modal.module.css';
 
-const modalRoot = document.querySelector('#modal-root');
+const Modal = ({ image, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.code === 'Escape') {
+        onClose();
+      }
+    };
 
-export default class Modal extends React.Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
+    window.addEventListener('keydown', handleKeyDown);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-  handleKeyDown = event => {
-    if (event.code === 'Escape') {
-      this.props.onClose();
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  const handleClick = event => {
+    if (event.target === event.currentTarget) {
+      onClose();
     }
   };
-  handleBackdropClick = event => {
-    if (event.currentTarget === event.target) {
-      this.props.onClose();
-    }
-  };
 
-  render() {
-    return createPortal(
-      <div className={css.Overlay} onClick={this.handleBackdropClick}>
-        <div className={css.Modal}>
-          <img
-            src={this.props.ImageUrl}
-            alt={this.props.tags}
-            width={600}
-            height={600}
-          />
-        </div>
-      </div>,
-      modalRoot
-    );
+  if (!image) {
+    return null;
   }
-}
+  return (
+    <div className={styles.Overlay} onClick={handleClick}>
+      <div className={styles.Modal}>
+        <img src={image.largeImageURL} alt={image.tags} />
+      </div>
+    </div>
+  );
+};
+
+Modal.propTypes = {
+  image: PropTypes.shape({
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default Modal;

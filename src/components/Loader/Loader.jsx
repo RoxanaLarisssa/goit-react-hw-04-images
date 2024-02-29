@@ -1,19 +1,22 @@
-import { BallTriangle } from 'react-loader-spinner';
-import css from './Loader.module.css';
+import React from 'react';
+import { MagnifyingGlass } from 'react-loader-spinner';
+import styles from './Loader.module.css';
 
-export const Loader = () => {
+const Loader = () => {
   return (
-    <div className={css.ContainerLoader}>
-      <BallTriangle
-        height={100}
-        width={100}
-        radius={5}
-        color="#4fa94d"
-        ariaLabel="ball-triangle-loading"
-        wrapperClass={{}}
-        wrapperStyle=""
+    <div className={styles.LoaderContainer}>
+      <MagnifyingGlass
         visible={true}
+        height="80"
+        width="80"
+        ariaLabel="magnifying-glass-loading"
+        wrapperStyle={{}}
+        wrapperClass="magnifying-glass-wrapper"
+        glassColor="#c0efff"
+        color="#e15b64"
       />
     </div>
   );
 };
+
+export default Loader;
