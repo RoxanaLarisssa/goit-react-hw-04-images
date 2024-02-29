@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Searchbar from './SearchBar//SearchBar';
+import Searchbar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
@@ -17,10 +17,11 @@ const App = () => {
     if (query !== '') {
       fetchImages();
     }
+    // eslint-disable-next-line
   }, [query]);
 
   const fetchImages = async () => {
-    const apiKey = '40924862-56f4c70484d80a98ef4c30bbb';
+    const apiKey = '42074727-f1151295fbcc10abbb4f66773';
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(
       query
     )}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`;
